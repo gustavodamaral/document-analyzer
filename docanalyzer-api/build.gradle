@@ -11,14 +11,14 @@ springBoot {
 }
 
 dependencies {
+    implementation project(':docanalyzer-core')
     implementation 'org.springframework.boot:spring-boot-starter-web'
-    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.apache.commons:commons-text'
 }
 
 application {
     // Define the main class for the application.
-    mainClass = 'com.gustavo.docanalyzer.api.App'
+    mainClass = 'com.gustavo.docanalyzer.api.DocumentAnalyzerApplication'
 }
 
 openApiGenerate {
@@ -34,15 +34,18 @@ openApiGenerate {
             skipDefaultInterface: "true",
             serializationLibrary: "jackson",
             enumPropertyNaming: "UPPERCASE",
-            models: "false",
+            models: "true",
             apis: "true",
             dateLibrary  : "java-time",
             documentationProvider: "none",
             useOptional: "true",
             openApiNullable: "false"
     ]
-    importMappings = [
-            "JsonNullable": "java.util.Optional"
+    typeMappings = [
+            "DateTime": "java.time.LocalDateTime",
+            "date-time": "java.time.LocalDateTime",
+            "date": "java.time.LocalDate",
+            "Date": "java.time.LocalDate",
     ]
 }
 

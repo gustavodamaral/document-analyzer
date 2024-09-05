@@ -11,4 +11,4 @@ plugins {
 }
 
 rootProject.name = 'document-analyzer'
-include('docanalyzer-api', 'docanalyzer-core', 'docanalyzer-module', 'docanalyzer-commons')
+include('docanalyzer-api', 'docanalyzer-core', 'docanalyzer-infrastructure', 'docanalyzer-commons')

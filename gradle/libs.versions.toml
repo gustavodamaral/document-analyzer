@@ -5,8 +5,16 @@
 spring-boot = "3.2.5"
 openapi = "7.8.0"
 jackson = "2.17.0"
+mapstruct = "1.6.0"
+lombok = "1.18.34"
+postgre = "42.7.4"
+aws = "2.27.0"
 
 [libraries]
 spring-boot = { module = "org.springframework.boot:spring-boot-gradle-plugin", version.ref = "spring-boot" }
 openapi = { module = "org.openapitools:openapi-generator-gradle-plugin", version.ref = "openapi" }
 jackson = { module = "com.fasterxml.jackson.core:jackson-databind", version.ref = "jackson" }
+mapstruct = { module = "org.mapstruct:mapstruct", version.ref = "mapstruct" }
+lombok = { module = "org.projectlombok:lombok", version.ref = "lombok" }
+postgre = { module = "org.postgresql:postgresql", version.ref = "postgre" }
+s3 = { module = "software.amazon.awssdk:s3", version.ref = "aws" }
