@@ -1,0 +1,22 @@
+plugins {
+    id 'self.java'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // Use JUnit Jupiter for testing.
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.10.3'
+
+    testImplementation 'org.mockito:mockito-core:5.4.0'
+    testImplementation 'org.assertj:assertj-core:3.23.1'
+
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+tasks.named('test') {
+    // Use JUnit Platform for unit tests.
+    useJUnitPlatform()
+}

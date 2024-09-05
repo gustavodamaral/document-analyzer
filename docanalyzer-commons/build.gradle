@@ -1,0 +1,8 @@
+plugins {
+    id 'self.java'
+    id 'java-library'
+}
+
+dependencies {
+    api(libs.jackson)
+}
