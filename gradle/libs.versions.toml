@@ -9,6 +9,7 @@ mapstruct = "1.6.0"
 lombok = "1.18.34"
 postgre = "42.7.4"
 aws = "2.27.0"
+spring-ai-bom = "1.0.0-SNAPSHOT"
 
 [libraries]
 spring-boot = { module = "org.springframework.boot:spring-boot-gradle-plugin", version.ref = "spring-boot" }
@@ -18,3 +19,4 @@ mapstruct = { module = "org.mapstruct:mapstruct", version.ref = "mapstruct" }
 lombok = { module = "org.projectlombok:lombok", version.ref = "lombok" }
 postgre = { module = "org.postgresql:postgresql", version.ref = "postgre" }
 s3 = { module = "software.amazon.awssdk:s3", version.ref = "aws" }
+spring-ai-bom = { module = "org.springframework.ai:spring-ai-bom", version.ref = "spring-ai-bom" }

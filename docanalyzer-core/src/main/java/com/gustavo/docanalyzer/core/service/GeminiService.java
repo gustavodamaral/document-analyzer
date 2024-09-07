@@ -40,7 +40,7 @@ public class GeminiService {
 
         String geminiResponse = geminiApi.generation(String.format(FIND_SYNONYMS_PROMPT, longestWord, context));
 
-        return geminiSynonymMapper.toGeminiSynonym(longestWord, geminiResponse);
+        return geminiSynonymMapper.toGeminiSynonym(longestWord, geminiResponse.trim());
     }
 
 }

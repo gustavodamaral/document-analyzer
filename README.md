@@ -46,7 +46,7 @@ Make sure you have Docker and Docker Compose installed on your machine.
 Run the following command to bring up the required services (LocalStack, AWS CLI, and PostgreSQL):
 
 ```bash
-docker-compose up
+docker compose up
 ```
 This will:
 

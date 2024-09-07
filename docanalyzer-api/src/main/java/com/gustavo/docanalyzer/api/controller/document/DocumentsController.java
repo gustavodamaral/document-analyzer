@@ -4,7 +4,6 @@ import com.gustavo.docanalyzer.api.controller.document.mapper.DocumentResponseMa
 import com.gustavo.docanalyzer.api.controller.document.response.SynonymsResponse;
 import com.gustavo.docanalyzer.api.controller.document.response.WordFreqResponse;
 import com.gustavo.docanalyzer.core.domain.GeminiSynonym;
-import com.gustavo.docanalyzer.core.exception.DocumentNotFoundException;
 import com.gustavo.docanalyzer.core.service.DocumentService;
 import com.gustavo.docanalyzer.core.service.GeminiService;
 import lombok.RequiredArgsConstructor;
@@ -28,32 +27,19 @@ public class DocumentsController {
 
     @GetMapping("/{documentId}/synonyms")
     public ResponseEntity<SynonymsResponse> getLongestWordSynonyms(@PathVariable Long documentId) {
-        try {
-            GeminiSynonym synonymSuggestions = geminiService.getSynonymSuggestions(documentId);
-            SynonymsResponse response = documentResponseMapper.toSynonymsResponse(synonymSuggestions);
-            return ResponseEntity.ok(response);
-        } catch (DocumentNotFoundException e) {
-            return ResponseEntity.notFound().build();
-        } catch (Exception e) {
-            return ResponseEntity.internalServerError().build();
-        }
+        GeminiSynonym synonymSuggestions = geminiService.getSynonymSuggestions(documentId);
+        SynonymsResponse response = documentResponseMapper.toSynonymsResponse(synonymSuggestions);
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping("/{documentId}/word-frequency")
     public ResponseEntity<WordFreqResponse> getWordFrequency(
             @PathVariable Long documentId,
             @RequestParam(defaultValue = "10") int topN) {
+        Map<String, Integer> wordFrequency = documentService.getWordFrequencyForDocument(documentId, topN);
+        WordFreqResponse response = documentResponseMapper.toWordFreqResponse(documentId, wordFrequency);
 
-        try {
-            Map<String, Integer> wordFrequency = documentService.getWordFrequencyForDocument(documentId, topN);
-            WordFreqResponse response = documentResponseMapper.toWordFreqResponse(documentId, wordFrequency);
-
-            return ResponseEntity.ok(response);
-        } catch (DocumentNotFoundException e) {
-            return ResponseEntity.notFound().build();
-        } catch (Exception e) {
-            return ResponseEntity.internalServerError().build();
-        }
+        return ResponseEntity.ok(response);
     }
 
 }

@@ -8,7 +8,6 @@ import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Map;
-import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -24,7 +23,7 @@ public class Document {
     private String content;
 
     public Map<String, Integer> analyzeWordFrequency() {
-        Map<String, Integer> wordFrequency = Arrays.stream(content.toLowerCase().split("\\s+"))
+        Map<String, Integer> wordFrequency = Arrays.stream(content.toLowerCase().split("[\\s.,:;!?]+"))
                 .collect(Collectors.toMap(word -> word, word -> 1, Integer::sum));
 
         return wordFrequency.entrySet().stream()
@@ -32,26 +31,21 @@ public class Document {
     }
 
     public String findLongestWord() {
-        return Arrays.stream(content.split("\\s+"))
+        return Arrays.stream(content.split("[\\s.,:;!?]+"))
                 .max(Comparator.comparingInt(String::length))
                 .orElse("");
     }
 
     public String getContextForLongestWord() {
-        String longestWord = findLongestWord();
-        Pattern pattern = Pattern.compile("\\b" + longestWord + "\\b", Pattern.CASE_INSENSITIVE);
+        int wordsAround = 10;
+
+        String regex = String.format("(?:\\b[\\w'-]+\\b[\\s,.]*){0,%d}\\b%s\\b(?:[\\s,.]*\\b[\\w'-]+\\b){0,%d}", wordsAround, this.findLongestWord(), wordsAround);
+
+        Pattern pattern = Pattern.compile(regex, Pattern.CASE_INSENSITIVE);
         Matcher matcher = pattern.matcher(content);
 
         if (matcher.find()) {
-            int start = matcher.start();
-            int end = matcher.end();
-
-            int contextRadius = 30;
-
-            int contextStart = Math.max(0, start - contextRadius);
-            int contextEnd = Math.min(content.length(), end + contextRadius);
-
-            return content.substring(contextStart, contextEnd);
+            return matcher.group();
         }
 
         return "";

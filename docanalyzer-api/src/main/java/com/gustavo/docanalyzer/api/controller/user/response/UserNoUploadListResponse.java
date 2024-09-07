@@ -10,6 +10,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserNoUploadListResponse {
+    private int usersCount;
     private List<UserNoUploadResponse> users;
 }
 
