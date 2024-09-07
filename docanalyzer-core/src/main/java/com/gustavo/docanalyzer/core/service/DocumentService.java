@@ -17,12 +17,13 @@ import java.util.stream.Collectors;
 @Service
 public class DocumentService {
 
+    private static final Set<String> EXCLUDED_WORDS = Set.of("the", "me", "you", "i", "of", "and", "a", "we");
     private final S3Api s3Api;
     private final DocumentRepository documentRepository;
-    private static final Set<String> EXCLUDED_WORDS = Set.of("the", "me", "you", "i", "of", "and", "a", "we");
 
     public Map<String, Integer> getWordFrequencyForDocument(Long documentId, int topN) {
-        DocumentEntity documentEntity = documentRepository.findById(documentId).orElseThrow(() -> new DocumentNotFoundException("Document not found"));
+        DocumentEntity documentEntity = documentRepository.findById(documentId).orElseThrow(() ->
+                new DocumentNotFoundException("Document not found"));
 
         String content = s3Api.getDocumentContentByMetadata(documentEntity.getS3Key());
 

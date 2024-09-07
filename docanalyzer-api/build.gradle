@@ -20,39 +20,3 @@ application {
     // Define the main class for the application.
     mainClass = 'com.gustavo.docanalyzer.api.DocumentAnalyzerApplication'
 }
-
-openApiGenerate {
-    generatorName = "spring"
-    inputSpec = "$rootDir/documentation/openapi.yaml"
-    outputDir = layout.buildDirectory.dir("generated").get().asFile.toString()
-    apiPackage = "com.gustavo.docanalyzer.api"
-    modelPackage = "com.gustavo.docanalyzer.model"
-    configOptions = [
-            interfaceOnly: "true",
-            generateSupportingFiles: "false",
-            useSpringBoot3: "true",
-            skipDefaultInterface: "true",
-            serializationLibrary: "jackson",
-            enumPropertyNaming: "UPPERCASE",
-            models: "true",
-            apis: "true",
-            dateLibrary  : "java-time",
-            documentationProvider: "none",
-            useOptional: "true",
-            openApiNullable: "false"
-    ]
-    typeMappings = [
-            "DateTime": "java.time.LocalDateTime",
-            "date-time": "java.time.LocalDateTime",
-            "date": "java.time.LocalDate",
-            "Date": "java.time.LocalDate",
-    ]
-}
-
-sourceSets {
-    main {
-        java {
-            srcDir "$buildDir/generated/src/main/java"  // Include the generated controllers in the source sets
-        }
-    }
-}

@@ -9,6 +9,8 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Map;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 @Data
@@ -17,7 +19,6 @@ import java.util.stream.Collectors;
 public class Document {
     private Long id;
     private String name;
-    private int wordCount;
     private LocalDateTime uploadDate;
     private User user;
     private String content;
@@ -31,8 +32,28 @@ public class Document {
     }
 
     public String findLongestWord() {
-        return Arrays.stream(content.split("\\W+"))
+        return Arrays.stream(content.split("\\s+"))
                 .max(Comparator.comparingInt(String::length))
                 .orElse("");
+    }
+
+    public String getContextForLongestWord() {
+        String longestWord = findLongestWord();
+        Pattern pattern = Pattern.compile("\\b" + longestWord + "\\b", Pattern.CASE_INSENSITIVE);
+        Matcher matcher = pattern.matcher(content);
+
+        if (matcher.find()) {
+            int start = matcher.start();
+            int end = matcher.end();
+
+            int contextRadius = 30;
+
+            int contextStart = Math.max(0, start - contextRadius);
+            int contextEnd = Math.min(content.length(), end + contextRadius);
+
+            return content.substring(contextStart, contextEnd);
+        }
+
+        return "";
     }
 }

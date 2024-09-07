@@ -5,6 +5,6 @@ plugins {
 
 dependencies {
     api(libs.jackson)
-    api(libs.mapstruct)
     api(libs.lombok)
+    api(libs.mapstruct)
 }

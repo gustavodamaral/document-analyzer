@@ -25,7 +25,7 @@ public class UserService {
         List<UserEntity> users = userRepository.findUsersByNoUploadWithinPeriod(startDateTime, endDateTime);
 
         return users.stream()
-                .map(userMapper::mappingUserEntityToUser)
+                .map(userMapper::toUser)
                 .toList();
     }
 }
