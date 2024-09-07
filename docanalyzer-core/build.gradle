@@ -5,3 +5,8 @@ plugins {
 dependencies {
     implementation project(':docanalyzer-infrastructure')
 }
+
+
+bootJar {
+    enabled = false
+}

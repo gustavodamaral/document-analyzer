@@ -12,3 +12,7 @@ dependencies {
     implementation('org.springframework.ai:spring-ai-vertex-ai-gemini-spring-boot-starter')
     implementation("org.springframework.ai:spring-ai-vertex-ai-palm2-spring-boot-starter")
 }
+
+bootJar {
+    enabled = false
+}
